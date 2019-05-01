@@ -3,9 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * 
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = "expr('/article/' ~ object.getId()), absolute = true" )
  */
 class Article
 {

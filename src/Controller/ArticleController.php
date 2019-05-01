@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use FOS\RestBundle\Controller\FOSRestController;
+use Hateoas\HateoasBuilder;
 
 class ArticleController extends FOSRestController
 {
@@ -28,7 +29,8 @@ class ArticleController extends FOSRestController
      */
     public function showAction(Article $article)
     {
-        $data = $this->get('serializer')->serialize($article, 'json');
+        $hateoas = HateoasBuilder::create()->build();
+        $data = $hateoas->serialize($article, 'json');
 
         $response = new Response($data);
         // $response->headers->set('Content-Type', 'application/json');
